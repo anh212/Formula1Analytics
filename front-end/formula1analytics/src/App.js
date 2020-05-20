@@ -1,28 +1,19 @@
 import React from 'react';
-import logo from './logo.svg';
-import { Button } from 'antd';
 import './App.css';
+import 'antd/dist/antd.css';
+import Navigation from './components/Navigation/Navigation';
+import Graph from './components/Graph/Graph';
+import MainFooter from './components/Footer/MainFooter'
+import { Layout } from 'antd';
 
 function App() {
   return (
-    // <div className="App">
-    //   <header className="App-header">
-    //     <img src={logo} className="App-logo" alt="logo" />
-    //     <p>
-    //       Edit <code>src/App.js</code> and save to reload.
-    //     </p>
-    //     <a
-    //       className="App-link"
-    //       href="https://reactjs.org"
-    //       target="_blank"
-    //       rel="noopener noreferrer"
-    //     >
-    //       Learn React
-    //     </a>
-    //   </header>
-    // </div>
     <div className="App">
-      <Button type="primary">Button</Button>
+      <Layout>
+        <Navigation />
+        <Graph />
+        <MainFooter />
+      </Layout>
     </div>
   );
 }
