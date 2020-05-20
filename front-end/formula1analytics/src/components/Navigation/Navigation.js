@@ -6,9 +6,8 @@ import 'antd/dist/antd.css';
 const { Header } = Layout;
 
 function Navigation() {
-  return (
-    <div className="Navigation">
-        <Layout className="layout">
+    return (
+        <div className="Navigation">
             <Header className="header">
                 <div className="logo" >
                     <p className="website-name">Formula 1 Analytics</p>
@@ -18,9 +17,8 @@ function Navigation() {
                     <Menu.Item key="2">Constructors</Menu.Item>
                 </Menu>
             </Header>
-        </Layout>
-    </div>
-  );
+        </div>
+    );
 }
 
 export default Navigation;
