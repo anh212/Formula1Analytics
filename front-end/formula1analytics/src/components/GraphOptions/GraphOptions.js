@@ -8,7 +8,7 @@ import Selector from '../Selector/Selector';
 
 function GraphOptions() {
     return (
-        <Row className="GraphOptions" gutter={[24, 16]}>
+        <Row className="GraphOptions flex-container wrap" gutter={[24, 16]}>
             <Col span={4}>
                 <Selector />
             </Col>

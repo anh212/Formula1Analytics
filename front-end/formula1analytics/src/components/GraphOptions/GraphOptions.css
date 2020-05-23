@@ -1,0 +1,8 @@
+.flex-container {
+    display: flex;
+}
+
+.wrap { 
+    -webkit-flex-wrap: wrap;
+    flex-wrap: wrap;
+}
