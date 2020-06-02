@@ -5,7 +5,7 @@ import 'antd/dist/antd.css';
 
 const { Header } = Layout;
 
-function Navigation() {
+function Navigation(props) {
     return (
         <div className="Navigation">
             <Header className="header">
@@ -13,8 +13,8 @@ function Navigation() {
                     <p className="website-name">Formula 1 Analytics</p>
                 </div>
                 <Menu theme="dark" mode="horizontal" defaultSelectedKeys={[]}>
-                    <Menu.Item key="1">Drivers</Menu.Item>
-                    <Menu.Item key="2">Constructors</Menu.Item>
+                    <Menu.Item onClick={() => props.onDataTypeChange('drivers')} key="drivers">Drivers</Menu.Item>
+                    <Menu.Item onClick={() => props.onDataTypeChange('constructors')} key="constructors">Constructors</Menu.Item>
                 </Menu>
             </Header>
         </div>

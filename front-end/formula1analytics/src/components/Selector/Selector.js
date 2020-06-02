@@ -1,19 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Select } from 'antd';
 import './Selector.css';
 import 'antd/dist/antd.css';
 
 const { Option } = Select;
 
-const children = [];
-for (let i = 10; i < 36; i++) {
-  children.push(<Option key={i.toString(36) + i}>{i.toString(36) + i}</Option>);
-}
+function Selector(props) {
+    //Insert the available options into the selector
+    //TODO: Need to get options from props and put into useState() param
+    const [options, setOptions] = useState(null);
 
-function handleChange(value) {
-  console.log(`selected ${value}`);
-}
-function Selector() {
+    const children = props.options.map((value) => {
+        return (<Option value={value}>{value}</Option>);
+    })
+
     return (
         <div className="selector">
             <Select
@@ -21,7 +21,8 @@ function Selector() {
                 style={{ width: '100%' }}
                 placeholder="Please select"
                 defaultValue={[]}
-                onChange={handleChange}
+                onChange={(props.onChange)}
+                allowClear={true}
             >
                 {children}
             </Select>
