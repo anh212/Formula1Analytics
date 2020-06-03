@@ -19,7 +19,7 @@ function Selector(props) {
             <Select
                 mode="multiple"
                 style={{ width: '100%' }}
-                placeholder="Please select"
+                placeholder={props.placeHolder}
                 defaultValue={[]}
                 onChange={(props.onChange)}
                 allowClear={true}

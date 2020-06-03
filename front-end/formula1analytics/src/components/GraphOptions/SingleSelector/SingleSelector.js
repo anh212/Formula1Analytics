@@ -36,7 +36,7 @@ function SingleSelector(props) {
       <Select
         showSearch
         style={{ width: 200 }}
-        placeholder="Select a person"
+        placeholder={props.placeHolder}
         optionFilterProp="children"
         onChange={props.onChange}
         onFocus={onFocus}
