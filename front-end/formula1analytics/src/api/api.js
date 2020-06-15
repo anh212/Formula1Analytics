@@ -34,45 +34,86 @@ export async function getDriverInfo(season) {
     return drivers;
 }
 
-export async function getDriverWins(driver, season) {
+export async function getDriverWins(season, driver) {
     const response = await fetch(apiURL + "/" + season + "/drivers/" + driver + "/results/1.json?limit=100");
+    console.log(response);
+    let data = await response.json();
 
-    return response;
+    console.log(data);
+    let wins = data.MRData.RaceTable.Races.length;
+    
+    return wins;
 }
 
-export async function getPolePositions(driver, season) {
+export async function getPolePositions(season, driver) {
     const response = await fetch(apiURL + "/" + season + "/drivers/" + driver + "/grid/1/results.json?limit=100");
+    console.log(response);
+    let data = await response.json();
 
-    return response;
+    console.log(data);
+    let poles = data.MRData.RaceTable.Races.length;
+
+    return poles;
 }
 
-export async function getFastestLaps(driver, season) {
+export async function getFastestLaps(season, driver) {
     const response  = await fetch(apiURL + "/" + season + "/drivers/" + driver + "/fastest/1/results.json?limit=100");
+    console.log(response);
+    let data = await response.json();
 
-    return response
+    console.log(data)
+    let fastestLaps = data.MRData.RaceTable.Races.length;
+    
+    return fastestLaps;
 }
 
-export async function getLapsLed(driver, season, round) {
+export async function getLapsLed(season, driver, round) {
     const response = await fetch(apiURL + "/" + season + "/" + round + "/drivers/" + driver + "/laps.json?limit=1000");
+    console.log(response);
+    let data = await response.json();
 
-    return response;
+    console.log(data);
+    
+    return data;
 }
 
 export async function getLapsLedAllDrivers(season, round) {
     const response = await fetch(apiURL + "/" + season + "/" + round + "/laps.json?limit=1000");
+    console.log(response);
+    let data = await response.json();
 
-    return response;
+    console.log(data)
+    
+    return data;
 }
 
 /**Get constructor information */
 export async function getConstructorInfo(season) {
     const response = await fetch(apiURL + "/" + season + "/constructors.json");
+    let data = await response.json();
 
-    return response;
+    console.log(data);
+
+    //Only need data for constructorId and name
+    let drivers = data.MRData.ConstructorTable.Constructors.map((value) => {
+        return {
+            constructorId: value.constructorId,
+            name: value.name
+        }
+    });
+    console.log(drivers);
+    return drivers;
 }
 
-export async function getAllConstructorWinsAndPoints(season) {
-    const response = await fetch(apiURL + "/" + season + "/constructorStandings.json");
+export async function getConstructorWinsAndPoints(season, constructor) {
+    const response = await fetch(apiURL + "/" + season + "/constructors/" + constructor + "/constructorStandings.json");
+    console.log(response);
+    let data = await response.json();
 
-    return response;
+    console.log(data)
+
+    //Return constructor standings to give option of using number of wins or points (standings)
+    let constructorStandings = data.MRData.StandingsTable.StandingsLists[0].ConstructorStandings[0];
+    console.log(constructorStandings);
+    return constructorStandings;
 }

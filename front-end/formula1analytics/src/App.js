@@ -12,7 +12,7 @@ function App() {
 
   function handleDataTypeChange(dataType) {
     setDataType(dataType);
-    console.log("data type changed: " + dataType)
+    console.log("data type changed: " + dataType);
   }
 
   return (

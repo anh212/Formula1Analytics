@@ -14,6 +14,8 @@ function ConstructorsOptions(props) {
     const [constructorsSelected, setConstructorsSelected] = useState(null);
     const [statSelected, setStatSelected] = useState(null);
 
+    let constructorsMap = new Map();
+
     //Functions for changing state of options selected
     async function selectSeason(season) {
         //Need to reload possible choices for drivers, constructors, and stats if change in data type
@@ -32,7 +34,6 @@ function ConstructorsOptions(props) {
         let constructors = await getConstructorInfo(season);
         console.log(constructors);
 
-        let constructorsMap = new Map();
         
         constructors.map((constructor) => {
             constructorsMap.set(constructor.name, constructor.constructorId);
@@ -47,7 +48,7 @@ function ConstructorsOptions(props) {
 
     function selectConstructors(constructors) {
         //If no selection made then this would remove the statistics selector
-        if (constructors === undefined || constructors.length == 0) {
+        if (constructors === undefined || constructors.length === 0) {
             // array empty or does not exist
             setConstructorsSelected(null);
         } else {
@@ -57,7 +58,7 @@ function ConstructorsOptions(props) {
 
     function selectStatistic(statistic) {
         //If no selection made then this would remove the visualize button
-        if (statistic === undefined || statistic.length == 0) {
+        if (statistic === undefined || statistic.length === 0) {
             // array empty or does not exist
             setStatSelected(null);
         } else {
@@ -65,8 +66,8 @@ function ConstructorsOptions(props) {
         }
     }
 
-    function setInputForData() {
-
+    function sendDataForStats() {
+        props.loadConstructorData(seasonSelected, constructorsSelected, statSelected, constructors);
     }
 
     async function setSeasonsData() {
@@ -107,7 +108,7 @@ function ConstructorsOptions(props) {
         selectors.push(<Col span={4}><SingleSelector placeHolder="Select a statistic" onChange={selectStatistic} options={stats}/></Col>);
     }
     if (statSelected !== null) {
-        selectors.push(<Col span={4}><Button onClick={setInputForData}>Visualize</Button></Col>);
+        selectors.push(<Col span={4}><Button onClick={sendDataForStats}>Visualize</Button></Col>);
     }
 
     console.log(selectors);

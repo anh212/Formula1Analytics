@@ -9,10 +9,13 @@ function DriversOptions(props) {
     //Options for drivers
     const [seasons, setSeasons] = useState(null);
     const [drivers, setDrivers] = useState(null);
-    const [stats, setStats] = useState(props.stats);
+    const [stats, setStat] = useState(props.stats);
     const [seasonSelected, setSeasonSelected] = useState(null);
     const [driversSelected, setDriversSelected] = useState(null);
     const [statSelected, setStatSelected] = useState(null);
+
+    //Need to convert array into map key: driver full name (givenName + familyName), value: driverId
+    let driversMap = new Map();
 
     //Functions for changing state of options selected
     async function selectSeason(season) {
@@ -32,8 +35,7 @@ function DriversOptions(props) {
         let driversData = await getDriverInfo(season);
         console.log(driversData);
 
-        //Need to convert array into map key: driver full name (givenName + familyName), value: driverId
-        let driversMap = new Map();
+
         
         driversData.map((driver) => {
             driversMap.set(driver.givenName + " " + driver.familyName, driver.driverId);
@@ -48,9 +50,10 @@ function DriversOptions(props) {
 
     function selectDrivers(drivers) {
         //If no selection made then this would remove the statistics selector
-        if (drivers === undefined || drivers.length == 0) {
+        if (drivers === undefined || drivers.length === 0) {
             // array empty or does not exist
             setDriversSelected(null);
+            setStatSelected(null);
         } else {
             setDriversSelected(drivers);
         }
@@ -58,7 +61,7 @@ function DriversOptions(props) {
 
     function selectStatistic(statistic) {
         //If no selection made then this would remove the visualize button
-        if (statistic === undefined || statistic.length == 0) {
+        if (statistic === undefined || statistic.length === 0) {
             // array empty or does not exist
             setStatSelected(null);
         } else {
@@ -66,8 +69,8 @@ function DriversOptions(props) {
         }
     }
 
-    function setInputForData() {
-
+    function sendDataForStats() {
+        props.loadDriversData(seasonSelected, driversSelected, statSelected, drivers);
     }
 
     async function setSeasonsData() {
@@ -109,7 +112,7 @@ function DriversOptions(props) {
         selectors.push(<Col span={4}><SingleSelector placeHolder="Select a statistic" onChange={selectStatistic} options={stats}/></Col>);
     }
     if (statSelected !== null) {
-        selectors.push(<Col span={4}><Button>Visualize</Button></Col>);
+        selectors.push(<Col onClick={sendDataForStats} span={4}><Button>Visualize</Button></Col>);
     }
 
     console.log(selectors);
